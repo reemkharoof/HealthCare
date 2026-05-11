@@ -1,0 +1,100 @@
+.sidebar {
+  width: 250px;
+  min-width: 250px;
+  min-height: 100vh;
+  background-color: #0f172a;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.35s ease,padding 0.35s ease,opacity 0.2s ease;
+
+}
+.sidebar.close{
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+  opacity: 0;
+  will-change: width;
+}
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 20px 0 30px 0;
+}
+.logo-circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 12px;
+  background: #2563eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo-icon {
+  color: white;
+  font-size: 22px;
+}
+.logo-text{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.logo-text h2 {
+  color: white;
+  font-size: 22px;
+  margin: 0;
+  line-height: 1;
+} 
+
+.logo-text p {
+  color: #9fb4e8;
+  font-size: 15px;
+  margin: 4px 0 0;
+  font-weight: 400;
+}  
+.section-title {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 15px 0 8px;
+  letter-spacing: 1px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+}
+.menu NavLink{
+  font-size: 30px;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #cbd5e1;
+  transition: 0.25s;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+.item:hover {
+  background: #1e293b;
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.item.active {
+  background: #2563eb;
+  color: #fff;
+}
+
+.item svg {
+  font-size: 16px;
+}
+
+
