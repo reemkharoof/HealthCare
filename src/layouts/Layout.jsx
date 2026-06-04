@@ -3,27 +3,28 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/header";
 import { useState } from "react";
 function Layout() {
-  const [isOpen,setIsOpen]= useState(true);
+  const [isOpen,setIsOpen]= useState(false);
 
   return (
     <div style={{ display: "flex", overflow:"hidden"}}>
-      {/* الشريط الجانبي */}
       <Sidebar
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />
-      <div style={{ flex:1,display:"flex", }}>
+      <div style={{ flex:1, }}>
         <Header 
          isOpen={isOpen}
          setIsOpen={setIsOpen}
         />
         <Outlet/>
       </div>
-      {/* المحتوى الرئيسي */}
     </div>
   );
 }
 
 export default Layout;
+
+
+
 
 

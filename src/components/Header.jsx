@@ -1,37 +1,54 @@
 import { FaBars, FaSearch } from "react-icons/fa";
-import './header.css';
 import { FiBell } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
-function Header({isOpen,setIsOpen}) {
-
-
+function Header({ isOpen, setIsOpen }) {
   return (
-    <div className="header">
-        
-      <div className="header_left">
-        <button className="menu_btn" onClick={()=>setIsOpen(!isOpen)}>
-          <FaBars className="bars"/>
+    <div className="flex-1 bg-slate-900 h-[70px] flex items-center justify-between px-[30px] border-b border-slate-800 shadow-lg">
+
+      {/* LEFT */}
+      <div className="flex items-center gap-[25px]">
+
+        {/* MENU */}
+        <button
+          className="bg-transparent cursor-pointer text-[24px] flex justify-center items-center"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <FaBars className="text-slate-200 hover:text-white transition" />
         </button>
-        
-        <div className="search_box">
-          <FaSearch className="search_icon"/>
-          <input type="text" placeholder="Search..." />
+
+        {/* SEARCH */}
+        <div className="w-[320px] h-[48px] bg-slate-800 rounded-[14px] flex items-center relative overflow-hidden">
+
+          <FaSearch className="absolute right-[18px] text-slate-400 text-[16px]" />
+
+          <input
+            type="text"
+            placeholder="Search..."
+            className="w-full h-full outline-none bg-transparent pr-[50px] pl-[18px] text-[17px] text-white placeholder:text-slate-400"
+          />
         </div>
       </div>
 
-      <div className="header_right">
+      {/* RIGHT */}
+      <div className="flex items-center gap-4">
 
-        <button className="notification">
-          <FiBell className="bell"/>
+        {/* NOTIFICATION */}
+        <button className="text-[25px] text-slate-300 hover:text-white transition">
+          <FiBell />
         </button>
 
+        {/* LOGIN BUTTON */}
+        <Link
+          to="/login"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-medium transition"
+        >
+          Login
+        </Link>
 
       </div>
     </div>
   );
 }
+
 export default Header;
-
-
- 
-
