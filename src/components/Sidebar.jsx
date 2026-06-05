@@ -337,9 +337,9 @@ function Sidebar({ isOpen }) {
               <span className="text-[15px]">Departments</span>
             </NavLink>
            {/* رابط التخصصات */}
-            <NavLink to="/specialties" className={linkClass}>
+            <NavLink to="/specialization" className={linkClass}>
               <FaGraduationCap className="text-[16px]" />
-              <span className="text-[15px]">Specialties</span>
+              <span className="text-[15px]">Specialization</span>
             </NavLink>
           </div>
         </div>
@@ -380,3 +380,9 @@ function Sidebar({ isOpen }) {
 }
 
 export default Sidebar;
+
+
+
+
+
+
