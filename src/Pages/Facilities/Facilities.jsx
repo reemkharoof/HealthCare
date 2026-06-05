@@ -17,7 +17,7 @@ import {
   FaCheckCircle 
 } from 'react-icons/fa';
 
-const FacilitiesPage = () => {
+const Facilities = () => {
   const [facilities, setFacilities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -307,4 +307,4 @@ grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1
   center: { display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh', fontSize: '18px', fontWeight: 'bold' }
 };
 
-export default FacilitiesPage;
+export default Facilities;
