@@ -1,5 +1,5 @@
- import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // استخدام الأكسيوس المباشر والمضمون
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'; 
 import { 
   FaStethoscope, 
   FaPlus, 
@@ -31,19 +31,19 @@ const Specialization = () => {
   const [formLoading, setFormLoading] = useState(false);
   const [formSuccess, setFormSuccess] = useState('');
 
-  // جلب التوكن الشغال تلقائياً من الـ Local Storage تبع مصطفى
+  // جلب التوكن الشغال تلقائياً من الـ Local Storage
   const getAuthToken = () => {
     let token = localStorage.getItem('token');
     if (!token) {
-      token = "4|fK03g8O6JNX5PVnKvP20NTPGHfYDVyogg8bp0bjK013990c9"; // التوكن الشغال من البوستمان
+      token = "4|fK03g8O6JNX5PVnKvP20NTPGHfYDVyogg8bp0bjK013990c9"; 
     }
     return token;
   };
 
-  // الرابط الأساسي الصافي والمفرد متل ما ضبط بالبوستمان
+  // الرابط الأساسي الصافي
   const API_URL = 'https://app-b4a68046-cc76-405f-b0be-527f1eae5608.cleverapps.io/api/specialization';
 
-  // 1️⃣ [GET] جلب البيانات
+  // 1️⃣ [GET] جلب البيانات (تم تصليح الـ Template Literal)
   const getSpecializationsData = async () => {
     try {
       const response = await axios.get(API_URL, {
@@ -80,7 +80,7 @@ const Specialization = () => {
       const newSpecData = { name, description };
       await axios.post(API_URL, newSpecData, {
         headers: {
-          'Authorization':` Bearer ${getAuthToken()}`,
+          'Authorization': `Bearer ${getAuthToken()}`,
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
@@ -123,7 +123,7 @@ const Specialization = () => {
     setEditDescription(spec.description || '');
   };
 
-  // 4️⃣ [PUT] حفظ التعديل
+  // 4️⃣ [PUT] حفظ التعديل (تم تصليح الـ Template Literal والـ Backticks)
   const handleUpdateSpecialization = async (id) => {
     try {
       const updatedData = { name: editName, description: editDescription };
@@ -142,101 +142,101 @@ const Specialization = () => {
     }
   };
  if (loading) return (
-    <div style={styles.center}>
-      <FaSpinner className="spinner" style={{ marginLeft: '12px', color: '#2563eb', fontSize: '24px' }} /> 
-      <span style={{ color: '#475569', fontWeight: '500' }}>جاري تحميل لوحة التخصصات الطبية...</span>
+    <div className="flex justify-center items-center h-[60vh] text-[16px] gap-2.5">
+      <FaSpinner className="spinner text-primary text-[24px] ml-3" /> 
+      <span className="text-textDark font-medium">جاري تحميل لوحة التخصصات الطبية...</span>
     </div>
   );
   
   if (error) return (
-    <div style={styles.center}>
-      <div style={styles.errorCard}>
-        <FaExclamationTriangle style={{ marginLeft: '10px', fontSize: '22px' }} /> {error}
+    <div className="flex justify-center items-center h-[60vh] text-[16px] gap-2.5">
+      <div className="flex items-center px-6 py-4 bg-dangerRedBg text-dangerRed rounded-xl border border-red-200">
+        <FaExclamationTriangle className="ml-2.5 text-[22px]" /> {error}
       </div>
     </div>
   );
 
   return (
-    <div style={styles.container}>
+    <div className="p-[30px] max-w-[1280px] my-0 mx-auto" style={{ direction: 'rtl' }}>
       
-      {/* هيدر الصفحة الفخم */}
-      <div style={styles.headerSection}>
-        <div style={styles.iconBackground}>
-          <FaStethoscope style={{ color: '#2563eb', fontSize: '28px' }} />
+      {/* هيدر الصفحة الفخم المشترك */}
+      <div className="flex items-center gap-[15px] mb-[35px] border-b border-cardBorder pb-5">
+        <div className="w-[56px] h-[56px] bg-badgeBlue rounded-[14px] flex justify-center items-center">
+          <FaStethoscope className="text-primary text-[28px]" />
         </div>
         <div>
-          <h2 style={styles.mainTitle}>لوحة إدارة التخصصات الطبية</h2>
-          <p style={styles.subTitle}>تصفح، أضف، وعدل التخصصات المتاحة بأقسام المستشفى بكل سهولة.</p>
+          <h2 className="text-[24px] font-bold text-textDark m-0">لوحة إدارة التخصصات الطبية</h2>
+          <p className="text-[14px] text-textMuted mt-1 mx-0 mb-0">تصفح، أضف، وعدل التخصصات المتاحة بأقسام المستشفى بكل سهولة.</p>
         </div>
       </div>
 
       {/* فورم الإضافة المودرن */}
-      <div style={styles.formCard}>
-        <h3 style={styles.formTitle}>
-          <FaPlus style={{ marginLeft: '8px', color: '#2563eb' }} /> إضافة تخصص جديد للنظام
+      <div className="bg-cardBg border border-inputBorder rounded-[16px] p-6 shadow-sm mb-10">
+        <h3 className="text-textDark mb-5 font-semibold text-[16px] flex items-center">
+          <FaPlus className="ml-2 text-primary" /> إضافة تخصص جديد للنظام
         </h3>
         
         {formSuccess && (
-          <div style={styles.successAlert}>
-            <FaCheckCircle style={{ marginLeft: '8px', fontSize: '16px' }} /> {formSuccess}
+          <div className="p-[12px_16px] bg-emerald-50 text-successGreen rounded-[10px] mb-5 text-[14px] flex items-center border border-emerald-200">
+            <FaCheckCircle className="ml-2 text-[16px]" /> {formSuccess}
           </div>
         )}
         
-        <form onSubmit={handleAddSpecialization} style={styles.formGrid}>
-          <div style={styles.inputWrapper}>
-            <FaHeading style={styles.inputIcon} />
-            <input type="text" placeholder="اسم التخصص (مثال: Cardiology)" value={name} onChange={(e) => setName(e.target.value)} required style={styles.input} />
+        <form onSubmit={handleAddSpecialization} className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))_160px] gap-[15px] items-center">
+          <div className="relative flex items-center">
+            <FaHeading className="absolute right-3 text-textMuted text-[14px]" />
+            <input type="text" placeholder="اسم التخصص (مثال: Cardiology)" value={name} onChange={(e) => setName(e.target.value)} required className="w-full pr-[38px] pl-3 py-3 rounded-[10px] border border-inputBorder text-[14px] outline-none bg-authBg" />
           </div>
           
-          <div style={styles.inputWrapper}>
-            <FaFileAlt style={styles.inputIcon} />
-            <input type="text" placeholder="وصف تفصيلي عن التخصص..." value={description} onChange={(e) => setDescription(e.target.value)} style={styles.input} />
+          <div className="relative flex items-center">
+            <FaFileAlt className="absolute right-3 text-textMuted text-[14px]" />
+            <input type="text" placeholder="وصف تفصيلي عن التخصص..." value={description} onChange={(e) => setDescription(e.target.value)} className="w-full pr-[38px] pl-3 py-3 rounded-[10px] border border-inputBorder text-[14px] outline-none bg-authBg" />
           </div>
           
-          <button type="submit" disabled={formLoading} style={styles.submitBtn}>
-            {formLoading ? <FaSpinner className="spinner" /> : <>حفظ التخصص <FaPlus style={{ marginRight: '8px' }} /></>}
+          <button type="submit" disabled={formLoading} className="h-[46px] w-full rounded-[10px] border-none bg-primary text-white text-[14px] font-semibold cursor-pointer flex justify-center items-center">
+            {formLoading ? <FaSpinner className="spinner" /> : <>حفظ التخصص <FaPlus className="mr-2" /></>}
           </button>
         </form>
       </div>
 
       {/* قائمة عرض التخصصات */}
-      <div style={styles.grid}>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-6">
         {specializations.map((spec) => (
-          <div key={spec.id} className="spec-card" style={styles.card}>
+          <div key={spec.id} className="spec-card border border-inputBorder rounded-[16px] p-6 shadow-sm bg-cardBg flex flex-col justify-between min-h-[200px]">
             
             {editingId === spec.id ? (
-              <div style={styles.editForm}>
-                <h4 style={{ color: '#1e293b', marginBottom: '10px', fontWeight: '600' }}>تعديل البيانات:</h4>
-                <input type="text" value={editName} onChange={(e) => setEditName(e.target.value)} style={styles.inputSmall} placeholder="اسم التخصص" />
-                <textarea value={editDescription} onChange={(e) => setEditDescription(e.target.value)} style={styles.textareaSmall} placeholder="الوصف..." rows="3" />
-                <div style={styles.actionButtons}>
-                  <button onClick={() => handleUpdateSpecialization(spec.id)} style={styles.saveBtn}>
-                    <FaSave style={{ marginLeft: '5px' }} /> حفظ التغيير
+              <div className="flex flex-col gap-2.5">
+                <h4 className="text-textDark mb-2.5 font-semibold">تعديل البيانات:</h4>
+                <input type="text" value={editName} onChange={(e) => setEditName(e.target.value)} className="p-2.5 rounded-[8px] border border-inputBorder text-[13px] outline-none" placeholder="اسم التخصص" />
+ <textarea value={editDescription} onChange={(e) => setEditDescription(e.target.value)} className="p-2.5 rounded-[8px] border border-inputBorder text-[13px] outline-none resize-y" placeholder="الوصف..." rows="3" style={{ fontFamily: 'inherit' }} />
+                <div className="flex gap-2 justify-end mt-1">
+                  <button onClick={() => handleUpdateSpecialization(spec.id)} className="border-none bg-successGreen text-white px-3.5 py-1.5 rounded-[8px] cursor-pointer text-[13px] font-semibold flex items-center">
+                    <FaSave className="ml-1" /> حفظ التغيير
                   </button>
-                  <button onClick={() => setEditingId(null)} style={styles.cancelBtn}>
-                    <FaTimes style={{ marginLeft: '5px' }} /> إلغاء
+                  <button onClick={() => setEditingId(null)} className="border-none bg-textMuted text-white px-3.5 py-1.5 rounded-[8px] cursor-pointer text-[13px] font-semibold flex items-center">
+                    <FaTimes className="ml-1" /> إلغاء
                   </button>
                 </div>
               </div>
             ) : (
               <>
                 <div>
-                  <div style={styles.cardHeader}>
-                    <h3 style={styles.specName}>
+                  <div className="flex justify-between items-start mb-3 gap-2.5">
+                    <h3 className="text-[18px] text-darkBg font-bold m-0">
                       {spec.name}
                     </h3>
-                    <span style={styles.badge}>ID: {spec.id}</span>
+                    <span className="bg-authBg text-textMuted px-2 py-1 rounded-[6px] text-[11px] font-semibold">ID: {spec.id}</span>
                   </div>
-                  <p style={styles.text}>
+                  <p className="text-textMuted text-[14px] leading-relaxed m-0">
                     {spec.description || 'لا يوجد وصف تفصيلي متاح لهذا التخصص حالياً.'}
                   </p>
                 </div>
-                 <div style={styles.controlPanel}>
-                  <button onClick={() => startEdit(spec)} style={styles.editBtnIcon}>
-                    <FaEdit style={{ marginLeft: '5px' }} /> تعديل
+                <div className="flex gap-2.5 mt-5 pt-3.5 border-t border-cardBorder justify-end">
+                  <button onClick={() => startEdit(spec)} className="border-none bg-warningAmberBg text-warningAmber px-3.5 py-1.5 rounded-[8px] cursor-pointer flex items-center text-[13px]">
+                    <FaEdit className="ml-1" /> تعديل
                   </button>
-                  <button onClick={() => handleDeleteSpecialization(spec.id)} style={styles.deleteBtnIcon}>
-                    <FaTrashAlt style={{ marginLeft: '5px' }} /> حذف
+                  <button onClick={() => handleDeleteSpecialization(spec.id)} className="border-none bg-dangerRedBg text-dangerRed px-3.5 py-1.5 rounded-[8px] cursor-pointer flex items-center text-[13px]">
+                    <FaTrashAlt className="ml-1" /> حذف
                   </button>
                 </div>
               </>
@@ -250,44 +250,18 @@ const Specialization = () => {
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .spinner { animation: spin 1s linear infinite; }
         .spec-card { transition: all 0.3s ease-in-out; }
-        .spec-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.08) !important; border-color: #2563eb !important; }
+        .spec-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.06); border-color: #2563eb !important; }
       `}</style>
     </div>
   );
 };
 
-// التنسيقات الفخمة والثابتة
-const styles = {
-  container: { padding: '30px', maxWidth: '1280px', margin: '0 auto', direction: 'rtl', fontFamily: '"Segoe UI", Roboto, sans-serif' },
-  headerSection: { display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '35px', borderBottom: '1px solid #f1f5f9', paddingBottom: '20px' },
-  iconBackground: { width: '56px', height: '56px', backgroundColor: '#eff6ff', borderRadius: '14px', display: 'flex', justifyContent: 'center', alignItems: 'center' },
-  mainTitle: { fontSize: '24px', fontWeight: '700', color: '#1e293b', margin: 0 },
-  subTitle: { fontSize: '14px', color: '#64748b', margin: '5px 0 0 0' },
-  formCard: { backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '25px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.01)', marginBottom: '40px' },
-  formTitle: { color: '#334155', marginBottom: '20px', fontWeight: '600', fontSize: '16px', display: 'flex', alignItems: 'center' },
-  formGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr)) 160px', gap: '15px', alignItems: 'center' },
-  inputWrapper: { position: 'relative', display: 'flex', alignItems: 'center' },
-  inputIcon: { position: 'absolute', right: '12px', color: '#94a3b8', fontSize: '14px' },
-  input: { width: '100%', padding: '12px 38px 12px 12px', borderRadius: '10px', border: '1px solid #cbd5e1', fontSize: '14px', outline: 'none', backgroundColor: '#f8fafc' },
-  submitBtn: { height: '46px', width: '100%', borderRadius: '10px', border: 'none', backgroundColor: '#2563eb', color: '#fff', fontSize: '14px', fontWeight: '600', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center' },
-  successAlert: { padding: '12px 16px', backgroundColor: '#ecfdf5', color: '#065f46', borderRadius: '10px', marginBottom: '20px', fontSize: '14px', display: 'flex', alignItems: 'center', border: '1px solid #a7f3d0' },
-  grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '25px' },
-  card: { border: '1px solid #e2e8f0', borderRadius: '16px', padding: '24px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.02)', backgroundColor: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '200px' },
-  cardHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px', gap: '10px' },
-  specName: { fontSize: '18px', color: '#0f172a', fontWeight: '700', margin: 0 },
-  badge: { backgroundColor: '#f1f5f9', color: '#475569', padding: '4px 8px', borderRadius: '6px', fontSize: '11px', fontWeight: '600' },
-  text: { color: '#475569', fontSize: '14px', lineHeight: '1.6', margin: 0 },
-  controlPanel: { display: 'flex', gap: '10px', marginTop: '20px', paddingTop: '15px', borderTop: '1px solid #f1f5f9', justifyContent: 'flex-end' },
- editBtnIcon: { border: 'none', backgroundColor: '#fffbeb', color: '#b45309', padding: '6px 14px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', fontSize: '13px' },
-  deleteBtnIcon: { border: 'none', backgroundColor: '#fef2f2', color: '#b91c1c', padding: '6px 14px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', fontSize: '13px' },
-  editForm: { display: 'flex', flexDirection: 'column', gap: '10px' },
-  inputSmall: { padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none' },
-  textareaSmall: { padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none', resize: 'vertical', fontFamily: 'inherit' },
-  actionButtons: { display: 'flex', gap: '8px', marginTop: '5px', justifyContent: 'flex-end' },
-  saveBtn: { border: 'none', backgroundColor: '#10b981', color: '#fff', padding: '6px 14px', borderRadius: '8px', cursor: 'pointer', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center' },
-  cancelBtn: { border: 'none', backgroundColor: '#64748b', color: '#fff', padding: '6px 14px', borderRadius: '8px', cursor: 'pointer', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center' },
-  center: { display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh', fontSize: '16px', gap: '10px' },
-  errorCard: { display: 'flex', alignItems: 'center', padding: '16px 24px', backgroundColor: '#fef2f2', color: '#991b1b', borderRadius: '12px', border: '1px solid #fca5a5' }
-};
-
 export default Specialization;
+
+
+
+
+
+
+
+
