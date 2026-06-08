@@ -1,4 +1,4 @@
-import { useState } from "react"; // ضفنا الـ useState عشان القائمة المنسدلة
+import { useState } from "react"; 
 import { NavLink, useLocation } from "react-router-dom"; 
 import {
   FaTachometerAlt,
@@ -9,20 +9,20 @@ import {
   FaSyringe,
   FaPlus,
   FaClinicMedical,
-  FaFlask,
-  FaHistory,
   FaUsersCog,
-  FaChevronDown, // أيقونة السهم الصغير للقائمة
-  FaSitemap,     // أيقونة فخمة للأقسام
-  FaGraduationCap // أيقونة للتخصصات
+  FaChevronDown, 
+  FaSitemap,     
+  FaGraduationCap,
+  FaUserCircle // الأيقونة الصحيحة للملف الشخصي لمنع الصفحة البيضاء
 } from "react-icons/fa";
 
 function Sidebar({ isOpen }) {
-  // متغير حالة لفتح وإغلاق قائمة الهيكل الطبي المنسدلة
+  // حالات التحكم بالقوائم المنسدلة المفتوحة
   const [showMedical, setShowMedical] = useState(false);
+  const [showUsers, setShowUsers] = useState(false); 
   const location = useLocation();
 
-  // كلاس تنسيق الروابط المشترك بالإنكليزي (الحركة لليمين عند الـ Hover) باستخدام ألوان التيلويند الموحدة 🎨
+  // تنسيق الروابط المشترك مع تأثير الحركة الخفيفة عند المرور بالماوس
   const linkClass = ({ isActive }) => `
     flex items-center gap-3 px-4 py-3 rounded-xl text-[16px] transition-all duration-200
     ${isActive 
@@ -31,18 +31,19 @@ function Sidebar({ isOpen }) {
     }`
   ;
 
-  // فحص إذا كان الرابط الحالي هو الأقسام أو التخصصات عشان نضوي الزر الرئيسي بالـ s الصح مية مية
+  // فحص روابط القوائم المنسدلة لإضاءة الزر الرئيسي عند تفعيل أي رابط فرعي
   const isMedicalActive = location.pathname === "/departments" || location.pathname === "/specialization";
+  const isUsersActive = location.pathname === "/doctors" || location.pathname === "/patients" || location.pathname === "/profile";
 
   return (
     <div
-      className={ `
+      className={`
         bg-darkBg text-white flex flex-col p-5 h-screen sticky top-0
         transition-all duration-300 ease-in-out z-50
         ${isOpen ? "w-[260px] min-w-[260px]" : "w-0 min-w-0 p-0 opacity-0 overflow-hidden"}
       `}
     >
-      {/* LOGO */}
+      {/* الشعار (LOGO) */}
       <div className="flex items-center gap-3 mt-3 mb-8">
         <div className="w-[38px] h-[38px] rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-blue-500/30">
           <FaPlus className="text-white text-[20px]" />
@@ -54,7 +55,7 @@ function Sidebar({ isOpen }) {
         </div>
       </div>
 
-      {/* MENU - Matching Your New Folders Exactly */}
+      {/* القائمة والروابط */}
       <nav className="flex flex-col gap-1.5 overflow-y-auto pl-1">
         
         {/* Dashboard */}
@@ -69,12 +70,12 @@ function Sidebar({ isOpen }) {
           <span>Facilities</span>
         </NavLink>
 
-        {/* 👑 القائمة المنسدلة الجديدة: Medical Structure */}
+        {/* 1. قائمة: Medical Structure المنسدلة */}
         <div className="flex flex-col gap-1">
           <button 
             onClick={() => setShowMedical(!showMedical)}
             className={`
-              flex items-center justify-between px-4 py-3 rounded-xl text-[16px] transition-all duration-200 w-100
+              flex items-center justify-between px-4 py-3 rounded-xl text-[16px] transition-all duration-200 w-full cursor-pointer
               ${isMedicalActive 
                 ? "bg-darkHover text-white font-medium border-l-4 border-primary" 
                 : "text-textLight hover:bg-darkHover hover:text-white"
@@ -85,21 +86,17 @@ function Sidebar({ isOpen }) {
               <FaSitemap className="text-[18px] text-[#9fb4e8]" />
               <span>Medical Structure</span>
             </div>
-            {/* سهم يلتف بسلاسة عند الفتح والإغلاق */}
             <FaChevronDown className={`text-[12px] transition-transform duration-300 ${showMedical ? "rotate-180" : ""}`} />
           </button>
 
-          {/* الروابط الفرعية تظهر هون بس لما نكبس على الزر */}
           <div className={`
             flex flex-col gap-1 pl-6 overflow-hidden transition-all duration-300 ease-in-out
             ${showMedical ? "max-h-[110px] opacity-100 mt-1" : "max-h-0 opacity-0"}
-                 `}>
-            {/* رابط الأقسام */}
+          `}>
             <NavLink to="/departments" className={linkClass}>
               <FaSitemap className="text-[14px]" />
               <span className="text-[15px]">Departments</span>
             </NavLink>
-           {/* رابط التخصصات المعدل لـ /specialization */}
             <NavLink to="/specialization" className={linkClass}>
               <FaGraduationCap className="text-[16px]" />
               <span className="text-[15px]">Specialization</span>
@@ -107,17 +104,49 @@ function Sidebar({ isOpen }) {
           </div>
         </div>
 
-        {/* Users Module */}
-        <NavLink to="/users" className={linkClass}>
-          <FaUsersCog className="text-[18px]" />
-          <span>Users Management</span>
-        </NavLink>
+        {/* 2. قائمة: Users Management المنسدلة والمصححة مفرودة بسطر واحد */}
+        <div className="flex flex-col gap-1">
+          <button 
+            onClick={() => setShowUsers(!showUsers)}
+            className={
+             ` flex items-center justify-between px-4 py-3 rounded-xl text-[16px] transition-all duration-200 w-full cursor-pointer whitespace-nowrap
+              ${isUsersActive 
+                ? "bg-darkHover text-white font-medium border-l-4 border-primary" 
+                : "text-textLight hover:bg-darkHover hover:text-white"
+              }`
+            }
+          >
+            <div className="flex items-center gap-3 min-w-0 flex-1">
+              <FaUsersCog className="text-[18px] text-[#9fb4e8] shrink-0" />
+              <span className="truncate">Users Management</span>
+            </div>
+            <FaChevronDown className={`text-[12px] transition-transform duration-300 shrink-0 mr-1 ${showUsers ? "rotate-180" : ""}`} />
+          </button>
 
-        {/* Patients Module */}
-        <NavLink to="/patients" className={linkClass}>
-          <FaUserInjured className="text-[18px]" />
-          <span>Patients Records</span>
-        </NavLink>
+          {/* الروابط الفرعية الخاصة بمجلد الـ Users المتاح بدون Staff */}
+          <div className={
+           ` flex flex-col gap-1 pl-6 overflow-hidden transition-all duration-300 ease-in-out
+            ${showUsers ? "max-h-[160px] opacity-100 mt-1" : "max-h-0 opacity-0"}`
+          }>
+            {/* رابط الأطباء */}
+            <NavLink to="/doctors" className={linkClass}>
+              <FaUserMd className="text-[15px]" />
+              <span className="text-[15px]">Doctors</span>
+            </NavLink>
+            
+            {/* رابط المرضى */}
+            <NavLink to="/patients" className={linkClass}>
+              <FaUserInjured className="text-[15px]" />
+              <span className="text-[15px]">Patients</span>
+            </NavLink>
+
+            {/* رابط إعدادات الحساب الشخصي */}
+            <NavLink to="/profile" className={linkClass}>
+              <FaUserCircle className="text-[15px]" />
+              <span className="text-[15px]">Profile Setting</span>
+            </NavLink>
+          </div>
+        </div>
 
         {/* Appointments Module */}
         <NavLink to="/appointments" className={linkClass}>

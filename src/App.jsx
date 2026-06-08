@@ -25,6 +25,9 @@ import Departments from './Pages/Facilities/Departments';
 import Schedules from './Pages/Appointments/Schedules';
 import Booking from './Pages/Appointments/Booking';
 import Profile from './Pages/Users/Profile';
+import DoctorProfile from './Pages/Users/DoctorProfile';
+import EditProfile from './Pages/Users/EditDoctor'
+import EditDoctor from './Pages/Users/EditDoctor';
 
 const DashboardPlaceholder = () => <div className="text-xl font-bold">Welcome to CarePlus Dashboard</div>;
 const AppointmentsPlaceholder = () => <div className="text-xl font-bold">Appointments Screen</div>;
@@ -48,6 +51,10 @@ function App() {
         <Route path="schedules" element={ <Schedules/>} />
         <Route path="booking" element={ <Booking/>} />
         <Route path="profile" element={ <Profile/>} />
+        <Route path="/doctors/:id" element={ <DoctorProfile/>} />
+        <Route path="/doctors/:id/edit" element={ <EditDoctor/>} />
+            
+
 
 
         <Route path="users" element={<Staff />} />

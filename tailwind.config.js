@@ -46,6 +46,10 @@ export default {
         cancelledBg: '#FEE2E2',     // خلفية أحمر فاتح
       },
     },
+    borderRadius:{
+      'card':'1rem',
+    }
+
   },
   plugins: [],
 }
