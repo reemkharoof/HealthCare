@@ -6,10 +6,8 @@ const EditDoctor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  
-  // استقبال البيانات الممررة من صفحة البروفايل عبر الـ state
   const initialData = location.state?.doctor || {};
-  
+
   const [formData, setFormData] = useState({
     full_name: initialData.profile?.full_name || "",
     phone: initialData.profile?.phone || "",
@@ -19,24 +17,33 @@ const EditDoctor = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // الحل الجذري: دمج البيانات القديمة بالكامل مع التعديلات الجديدة
+
+    // الحل: إرسال كافة الحقول التي تطلبها قاعدة البيانات بشكل صريح
     const payload = {
-      ...initialData, // نرسل كل البيانات الأصلية كما هي
       biography: formData.biography,
       qualification: formData.qualification,
+      profile_id: initialData.profile_id,
+      full_name: formData.full_name, // السيرفر قد يتوقع التعديلات مباشرة هنا
+      phone: formData.phone,         // أو داخل كائن profile
       profile: {
-        ...initialData.profile, // نحتفظ بـ profile_id وغيرها من الحقول الخفية
+        id: initialData.profile?.id,
         full_name: formData.full_name,
         phone: formData.phone
+      },
+      facility_department_specialization_id: initialData.facility_department_specialization_id,
+      years_of_experience: initialData.years_of_experience,
+      achievements: initialData.achievements,
+      languages: initialData.languages,
+      work_configuration: {
+        id: initialData.work_configuration?.id
       }
     };
 
     try {
       const token = localStorage.getItem("token");
       
-      await axios.put(
-        `https://app-b4a68046-cc76-405f-b0be-527f1eae5608.cleverapps.io/api/doctors/${id}`,
+      await axios.put(`
+        https://app-b4a68046-cc76-405f-b0be-527f1eae5608.cleverapps.io/api/doctors/${id}`,
         payload, 
         {
           headers: { 
@@ -48,10 +55,11 @@ const EditDoctor = () => {
       );
       
       alert("تم التعديل بنجاح!");
-      navigate(`/doctors/${id}`);
+      navigate(`/doctors/${id}`, { replace: true });
     } catch (err) {
-      console.error("خطأ السيرفر:", err.response?.data);
-      alert("فشل الحفظ. تأكدي من الـ Console.");
+      console.error("الخطأ من السيرفر:", err.response?.data);
+      // أرجوكِ، إذا ظهر هذا التنبيه، افتحي الـ Console وانسخي رسالة الخطأ الأخيرة
+      alert("فشل الحفظ. راجعي الـ Console للخطأ بالتفصيل.");
     }
   };
 

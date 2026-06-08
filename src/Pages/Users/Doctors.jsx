@@ -113,14 +113,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaUserMd, FaStethoscope, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { ClipLoader } from "react-spinners"; // تم إضافة المكتبة هنا
-
-// مكون دائرة التحميل (النقاط)
-const LoadingSpinner = () => (
-  <div className="flex flex-col justify-center items-center py-20 gap-4">
-    <PulseLoader color="#3B82F6" size={15} />
-    <p className="text-textDark font-medium">جاري تحميل بيانات الأطباء... يرجى الانتظار</p>
-  </div>
-);
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const API_BASE_URL = "https://app-b4a68046-cc76-405f-b0be-527f1eae5608.cleverapps.io/api";
 

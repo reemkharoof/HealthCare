@@ -8,27 +8,29 @@ const DoctorProfile = () => {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const [doctor, setDoctor] = useState(location.state?.doctor || null);
+  const [doctor, setDoctor] = useState(null);
   const [loading, setLoading] = useState(!doctor);
 
-  useEffect(() => {
-    if (!doctor) {
-      const fetchDoctor = async () => {
-        try {
-          const token = localStorage.getItem("token");
-          const response = await axios.get(`https://app-b4a68046-cc76-405f-b0be-527f1eae5608.cleverapps.io/api/doctors/${id}`, {
-            headers: { Authorization: token ? `Bearer ${token}` : "" }
-          });
-          setDoctor(response.data.data);
-        } catch (err) {
-          console.error("خطأ في جلب البيانات:", err);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchDoctor();
-    }
-  }, [id, doctor]);
+ useEffect(() => {
+    // نجبر الصفحة على جلب البيانات دائماً عند تغير الـ id
+    // ولا نعتمد على الـ doctor الموجود في الـ location.state
+    const fetchDoctor = async () => {
+      setLoading(true); // نظهر الـ Spinner ليحس المستخدم أننا نحدث البيانات
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`https://app-b4a68046-cc76-405f-b0be-527f1eae5608.cleverapps.io/api/doctors/${id}`, {
+          headers: { Authorization: token ? `Bearer ${token}` : "" }
+        });
+        setDoctor(response.data.data); // هنا نحدث الـ state بالبيانات الجديدة فعلياً
+      } catch (err) {
+        console.error("خطأ في جلب البيانات:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchDoctor();
+  }, [id]); // حذفنا 'doctor' من هنا لنجبر الـ useEffect على العمل دائماً
 
   if (loading) return <LoadingSpinner />;
   if (!doctor) return <div className="text-center mt-10 text-textDark">لم يتم العثور على الطبيب.</div>;
@@ -100,3 +102,6 @@ const DoctorProfile = () => {
 };
 
 export default DoctorProfile;
+
+
+
